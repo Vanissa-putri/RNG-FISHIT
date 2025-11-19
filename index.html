@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fish RNG Simulator</title>
+    <style>
+        body {
+            background: #0d1321;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #4f7cac;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #87bfff;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .rarity {
+            font-weight: bold;
+        }
+        .Common { color: #d1d1d1; }
+        .Rare { color: #2fa8ff; }
+        .Epic { color: #b54bff; }
+        .Legend { color: #ffb02e; }
+        .Secret { color: #ff3b3b; }
+    </style>
+</head>
+<body>
+
+    <h1>🎣 Fish RNG Simulator</h1>
+    <p>Tekan tombol untuk melihat rarity ikan yang kamu dapat!</p>
+
+    <button onclick="rollFish()">Roll Ikan</button>
+
+    <div id="result"></div>
+
+    <script>
+        // Sistem rarity (boleh edit)
+        const rarities = [
+            { name: "Common",  chance: 60 },
+            { name: "Rare",    chance: 25 },
+            { name: "Epic",    chance: 10 },
+            { name: "Legend",  chance: 4 },
+            { name: "Secret",  chance: 1 }
+        ];
+
+        function rollFish() {
+            let total = rarities.reduce((sum, r) => sum + r.chance, 0);
+            let rng = Math.random() * total;
+            let cumulative = 0;
+
+            for (let r of rarities) {
+                cumulative += r.chance;
+                if (rng <= cumulative) {
+                    document.getElementById("result").innerHTML =
+                        `Kamu mendapatkan: <span class="rarity ${r.name}">${r.name}</span> ⭐`;
+                    return;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
 
